@@ -2,7 +2,6 @@ package usecase_devices
 
 import (
 	"errors"
-	"strings"
 	"test-devices-api/database"
 	domain_devices "test-devices-api/domain"
 )
@@ -20,7 +19,7 @@ func Update(deviceId string, deviceData domain_devices.Devices) error {
 		return errors.New(string(ErrorInvalidDeviceId))
 	}
 
-	errorValidacao := validateDeviceDataForUpdate(&deviceData)
+	errorValidacao := validateDeviceDataForFilter(&deviceData)
 
 	if errorValidacao != nil {
 		return errorValidacao
@@ -40,42 +39,6 @@ func Update(deviceId string, deviceData domain_devices.Devices) error {
 
 	if errorUpdate != nil {
 		return errorUpdate
-	}
-
-	return nil
-
-}
-
-func validateDeviceDataForUpdate(deviceData *domain_devices.Devices) error {
-
-	if len(deviceData.Brand) > 0 {
-
-		if brandLen := len(deviceData.Brand); brandLen > domain_devices.MaxLenBrand {
-			return errors.New(string(ErrorInvalidBrand))
-		}
-
-		deviceData.Brand = strings.ToLower(strings.Trim(deviceData.Brand, " "))
-
-	}
-
-	if len(deviceData.Name) > 0 {
-
-		if nameLen := len(deviceData.Name); nameLen > domain_devices.MaxLenName {
-			return errors.New(string(ErrorInvalidName))
-		}
-
-		deviceData.Name = strings.ToLower(strings.Trim(deviceData.Name, " "))
-
-	}
-
-	if len(deviceData.State) > 0 {
-
-		errorValidatingState := validateState(deviceData.State)
-
-		if errorValidatingState != nil {
-			return errorValidatingState
-		}
-
 	}
 
 	return nil

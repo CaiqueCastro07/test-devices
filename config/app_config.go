@@ -41,19 +41,32 @@ func LoadConfig() {
 	}
 
 	currentEnvironment, ok := os.LookupEnv(DEFAULT_KEY_FOR_CONFIG)
-	envPath := "../"
 
 	fmt.Println("enviroment", currentEnvironment, ok)
 
 	if len(currentEnvironment) == 0 || currentEnvironment == "PROD" {
 		currentEnvironment = "PROD"
-		envPath = "./"
 	}
 
-	err := godotenv.Load(envPath + currentEnvironment + ".env")
+	possiblePaths := []string{"", "./", "../", "../../", "../../../"}
 
-	if err != nil {
-		panic(err)
+	found := false
+
+	for _, e := range possiblePaths {
+
+		err := godotenv.Load(e + currentEnvironment + ".env")
+
+		if err != nil {
+			continue
+		}
+
+		found = true
+		break
+
+	}
+
+	if !found {
+		log.Fatal("could not find proper .env file")
 	}
 
 	for _, e := range varLists {

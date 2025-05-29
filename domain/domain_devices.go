@@ -13,7 +13,7 @@ const TagModificationTime string = "modification_time"
 const TagCreationTime string = "creation_time"
 const DefaultInitState = DeviceStatusAvalaible
 
-const MaxLenID = 150
+const MaxLenID = 50
 const MaxLenBrand = 30
 const MaxLenName = 45
 

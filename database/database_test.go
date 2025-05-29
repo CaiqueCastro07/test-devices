@@ -35,7 +35,7 @@ func mainSetup() {
 }
 
 func teardown() {
-	deleteAllDevices()
+	DeleteAllDevices()
 }
 
 func TestDefaultTimeForDB(t *testing.T) {
@@ -305,7 +305,7 @@ func TestGetAllDevicesByField(t *testing.T) {
 
 func TestDeleteDeviceByid(t *testing.T) {
 
-	dbError := deleteAllDevices()
+	dbError := DeleteAllDevices()
 
 	if dbError != nil {
 		t.Errorf("got %s, expected %s", dbError, "nil")
