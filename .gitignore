@@ -1,0 +1,57 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+*.swp
+*.exe
+*.env
+pids
+logs
+results
+tmp
+
+# Build
+public/css/main.css
+
+# Coverage reports
+coverage
+
+# API keys and secrets
+# Dependency directory
+node_modules
+bower_components
+
+# Editors
+.idea
+*.iml
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore built ts files
+dist/**/*
+
+# ignore yarn.lock
+yarn.lock
+registroInfos.log
+*.log
+registroInfos.log
+registroInfos.log
+*.log
+registroInfos.log
+registroInfos.log
+*.exe
+*.kml
+*.sh
+
+*.hcl
+*.tfstate
+*.tfstate.backup
+*.sh
+*.terraform
+.env
