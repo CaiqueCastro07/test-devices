@@ -1,7 +1,6 @@
 package app_config
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -12,6 +11,8 @@ const key_external_auth = "EXTERNAL_AUTH"
 const key_mongo_url = "MONGO_URL"
 const key_db_name = "DB_NAME"
 const key_port = "PORT"
+
+var ENVIRONMENT = ""
 
 const DEFAULT_KEY_FOR_CONFIG = "APP_CONFIG"
 
@@ -42,13 +43,13 @@ func LoadConfig() {
 		return
 	}
 
-	currentEnvironment, ok := os.LookupEnv(DEFAULT_KEY_FOR_CONFIG)
+	currentEnvironment, _ := os.LookupEnv(DEFAULT_KEY_FOR_CONFIG)
 
 	if len(currentEnvironment) == 0 {
 		currentEnvironment = "PROD"
 	}
 
-	fmt.Println("environment", currentEnvironment, ok)
+	ENVIRONMENT = currentEnvironment
 
 	possiblePaths := []string{"", "./", "../", "../../", "../../../"}
 
