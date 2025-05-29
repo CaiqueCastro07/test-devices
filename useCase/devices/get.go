@@ -9,8 +9,6 @@ import (
 
 type DeviceGetErrors string
 
-const ()
-
 func GetDeviceById(deviceId string) (*domain_devices.Devices, error) {
 
 	if len(deviceId) == 0 || len(deviceId) > domain_devices.MaxLenID {

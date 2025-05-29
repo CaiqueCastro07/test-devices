@@ -308,7 +308,7 @@ func DeleteDeviceByID(id string) error {
 
 }
 
-func deleteAllDevices() error {
+func DeleteAllDevices() error {
 
 	if dbClient == nil {
 		return errors.New(string(ErrorDBNotConnected))
