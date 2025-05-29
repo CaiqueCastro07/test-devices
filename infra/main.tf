@@ -8,8 +8,8 @@ terraform {
 }
 
 provider "mgc" {
-    api_key = ""
-    region = "br-se1"
+    api_key = var.mgc_api_key
+    region = var.mgc_region
 }
 
 resource "mgc_virtual_machine_instances" "maquinas-test-devices-api" {
@@ -22,7 +22,7 @@ resource "mgc_virtual_machine_instances" "maquinas-test-devices-api" {
 
 resource "mgc_ssh_keys" "ssh_chave" {
     name = "infra-key"
-    key = ""
+    key = var.mgc_ssh_key
 }
 
 locals {
@@ -32,23 +32,23 @@ locals {
     ][0]
 }
 
-resource "mgc_network_public_ips_attach" "example" {
+resource "mgc_network_public_ips_attach" "vm-public-ip-attachment" {
     public_ip_id = mgc_network_public_ips.meu_id_publico.id
     interface_id = local.primary_interface_id
 }
 
-resource "mgc_network_public_ips" "meu_id_publico" {
-    description = "example public ip"
-    vpc_id = "" // pegar pelo script apos a criação
+resource "mgc_network_public_ips" "vm-public-ips" {
+    description = "public ips"
+    vpc_id = var.mgc_vpc_id 
 }
 
 resource "mgc_network_security_groups_attach" "regras_network"{
-    security_group_id = ""
+    security_group_id = var.mgc_sg_id
     interface_id = mgc_network_vpcs_interfaces.interface_gp.id
 
 }
 
 resource "mgc_network_vpcs_interfaces" "interface_gp" {
     name = "interface nomeada"
-    vpc_id = ""
+    vpc_id = var.mgc_vpc_i_id
 }
