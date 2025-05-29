@@ -43,3 +43,12 @@ terraform init
 terraform apply
 
 terraform destroy // for repeating the process
+
+## Overall documentation
+
+*EXTERNAL_AUTH on env, the key the client should sent on headers, placed at "x-api-key" header;
+
+
+
+
+
