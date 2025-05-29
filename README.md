@@ -58,11 +58,6 @@ terraform apply
 
 ```
 
-If you want to repeat
-
-```sh
-```
-
 ## Overall documentation
 
 *EXTERNAL_AUTH on env, the key the client should sent on headers, placed at "x-api-key" header;
