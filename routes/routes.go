@@ -2,6 +2,7 @@ package routes
 
 import (
 	"net/http"
+	app_config "test-devices-api/config"
 
 	"github.com/gorilla/mux"
 )
@@ -23,16 +24,8 @@ var authorizedPaths = map[string]bool{
 	StatusPath: true,
 }
 
-var auth = ""
-
-func SetRoutesAuth(token string) {
-	if len(token) > 0 {
-		auth = token
-	}
-}
-
 func isValidAuth(userAuth string) bool {
-	return userAuth == auth
+	return userAuth == app_config.EXTERNAL_AUTH
 }
 
 const headerForAuth = "x-api-key"
