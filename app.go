@@ -21,7 +21,7 @@ func main() {
 
 	routes.AddApproutes(route)
 
-	fmt.Println("Device App running port", app_config.PORT)
+	fmt.Println("Device App running port", app_config.PORT, "on", app_config.ENVIRONMENT)
 
 	log.Fatal(http.ListenAndServe(":"+app_config.PORT, route))
 
