@@ -28,6 +28,10 @@ sudo docker build . --no-cache -t yourdockerhubuser/test-devices-api:latest
 
 sudo docker push yourdockerhubuser/test-devices-api:latest
 
+for running the docker container
+
+sudo docker run -d -t i- p 3001:3001 -e EXTERNAL_AUTH="your auth" -e MONGO_URL="your mongo url" -e PORT="0000" -e DB_NAME="your db name" yourdockerhubuser/test-devices-api:latest
+
 ## Infra
 
 COMMANDS for deploying infra on MagaluCloud TF
