@@ -14,7 +14,7 @@ go get -d ./...
 at the root
 
  ```sh
-#go run app.go
+go run app.go
 ```
 
 ## Endpoints List
