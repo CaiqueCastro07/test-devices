@@ -48,7 +48,13 @@ terraform destroy // for repeating the process
 
 *EXTERNAL_AUTH on env, the key the client should sent on headers, placed at "x-api-key" header;
 
+Pending:
 
+x Rate limiters
+x Non-static external auth
+x Handlers fully tested
+x ID json tag as "id" on structs
+x actions
 
 
 
