@@ -56,7 +56,11 @@ terraform init
 
 terraform apply
 
-terraform destroy // for repeating the process
+```
+
+If you want to repeat
+
+```sh
 ```
 
 ## Overall documentation
