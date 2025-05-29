@@ -1,6 +1,45 @@
-# CRUD application in GO or GO Lang
+# CRUD application in GO
+
+A simple API for managing Devices
 
 ## Installation
 
+Add PROD.env and TEST.env file at the root of the project, follow the .env.example file pattern
 
+COMMANDS for running the server
 
+go get -d ./...
+
+at the root
+
+go run app.go
+
+## Endpoints List
+
+https://apidog.com/apidoc/shared-970c9244-c847-42d1-95d3-b7d7c5a17687
+
+## Docker
+
+COMMANDS for building and push the docker image
+
+sudo docker rmi --force yourdockerhubuser/test-devices-api
+
+sudo docker build . --no-cache -t yourdockerhubuser/test-devices-api:latest
+
+sudo docker push yourdockerhubuser/test-devices-api:latest
+
+## Infra
+
+COMMANDS for deploying infra on MagaluCloud TF
+
+export TF_VAR_mgc_api_key="your api key"
+export TF_VAR_region="your region"
+export TF_VAR_mgc_vpc_i_id="your vpc id if fixed"
+export TF_VAR_mgc_sg_id="your security group if fixed"
+export TF_VAR_mgc_ssh_key="your ssh key id if fixed"
+
+terraform init
+
+terraform apply
+
+terraform destroy // for repeating the process
