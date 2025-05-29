@@ -307,3 +307,19 @@ func DeleteDeviceByID(id string) error {
 	return nil
 
 }
+
+func deleteAllDevices() error {
+
+	if dbClient == nil {
+		return errors.New(string(ErrorDBNotConnected))
+	}
+
+	_, err := dbClient.Collection(devices_collection).DeleteMany(context.Background(), bson.D{{}})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+
+}
