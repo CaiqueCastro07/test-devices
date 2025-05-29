@@ -19,6 +19,8 @@ at the root
 
 ## Endpoints List
 
+This project is deployed on a VM, test it accessing the link below:
+
 https://apidog.com/apidoc/shared/970c9244-c847-42d1-95d3-b7d7c5a17687/status-17486321e0
 
 ## Docker
