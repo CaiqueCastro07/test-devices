@@ -11,15 +11,16 @@ import (
 const key_external_auth = "EXTERNAL_AUTH"
 const key_mongo_url = "MONGO_URL"
 const key_db_name = "DB_NAME"
+const key_port = "PORT"
 
 const DEFAULT_KEY_FOR_CONFIG = "APP_CONFIG"
 
 var MONGO_URL = ""
 var EXTERNAL_AUTH = ""
 var DB_NAME = ""
-var PORT = "3001"
+var PORT = ""
 
-var varLists = []string{key_external_auth, key_mongo_url, key_db_name}
+var varLists = []string{key_external_auth, key_mongo_url, key_db_name, key_port}
 
 func LoadConfig() {
 
@@ -89,5 +90,6 @@ func setVars() {
 	MONGO_URL = os.Getenv(key_mongo_url)
 	EXTERNAL_AUTH = os.Getenv(key_external_auth)
 	DB_NAME = os.Getenv(key_db_name)
+	PORT = os.Getenv(key_port)
 
 }
