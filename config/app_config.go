@@ -43,11 +43,11 @@ func LoadConfig() {
 
 	currentEnvironment, ok := os.LookupEnv(DEFAULT_KEY_FOR_CONFIG)
 
-	fmt.Println("enviroment", currentEnvironment, ok)
-
 	if len(currentEnvironment) == 0 {
 		currentEnvironment = "PROD"
 	}
+
+	fmt.Println("environment", currentEnvironment, ok)
 
 	possiblePaths := []string{"", "./", "../", "../../", "../../../"}
 

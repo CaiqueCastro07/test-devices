@@ -37,6 +37,7 @@ const (
 	ErrorDBNotConnected DBStringErrors = "the database is not connected"
 	ErrorEmptyUpdateMap DBStringErrors = "empty update map"
 	ErrorEmptySearchMap DBStringErrors = "empty search map"
+	ErrorInvalidID      DBStringErrors = "invalid device id"
 )
 
 func Connect() {
@@ -114,7 +115,7 @@ func UpdateDeviceByID(deviceID string, updateMap domain_devices.Devices) error {
 	objID, erroId := primitive.ObjectIDFromHex(deviceID)
 
 	if erroId != nil {
-		return erroId
+		return errors.New(string(ErrorInvalidID))
 	}
 
 	updateSet[domain_devices.TagModificationTime] = defaultTimeForDB()
@@ -142,7 +143,8 @@ func GetDeviceByID(id string) (*domain_devices.Devices, error) {
 	objID, erroId := primitive.ObjectIDFromHex(id)
 
 	if erroId != nil {
-		return &domain_devices.Devices{}, erroId
+		return &domain_devices.Devices{}, errors.New(string(ErrorInvalidID))
+
 	}
 
 	var result domain_devices.Devices
@@ -170,7 +172,8 @@ func GetDeviceByStateID(id string) (domain_devices.DeviceState, error) {
 	objID, erroId := primitive.ObjectIDFromHex(id)
 
 	if erroId != nil {
-		return "", erroId
+		return "", errors.New(string(ErrorInvalidID))
+
 	}
 
 	fieldsToBring := options.FindOne().SetProjection(bson.D{{domain_devices.TagState, 1}})
@@ -293,7 +296,7 @@ func DeleteDeviceByID(id string) error {
 	objID, erroId := primitive.ObjectIDFromHex(id)
 
 	if erroId != nil {
-		return erroId
+		return errors.New(string(ErrorInvalidID))
 	}
 
 	var result domain_devices.Devices
@@ -301,6 +304,11 @@ func DeleteDeviceByID(id string) error {
 	err := dbClient.Collection(devices_collection).FindOneAndDelete(context.Background(), bson.D{{defaultIDTagName, objID}}).Decode(&result)
 
 	if err != nil {
+
+		if err == mongo.ErrNoDocuments {
+			return nil
+		}
+
 		return err
 	}
 
@@ -317,6 +325,11 @@ func DeleteAllDevices() error {
 	_, err := dbClient.Collection(devices_collection).DeleteMany(context.Background(), bson.D{{}})
 
 	if err != nil {
+
+		if err == mongo.ErrNoDocuments {
+			return nil
+		}
+
 		return err
 	}
 

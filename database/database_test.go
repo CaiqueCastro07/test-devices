@@ -136,7 +136,7 @@ func TestUpdateDeviceByID(t *testing.T) {
 		{
 			input1:      "iOAJDOajdioa",
 			input2:      domain_devices.Devices{Brand: "aa"},
-			expectedRes: primitive.ErrInvalidHex,
+			expectedRes: errors.New(string(ErrorInvalidID)),
 		},
 	}
 
@@ -221,6 +221,13 @@ func TestGetDeviceById(t *testing.T) {
 
 	if len(deviceData2.Brand) != 0 {
 		t.Errorf("got %s, expected %s", deviceData2.Brand, "empty struct")
+		return
+	}
+
+	errorDeleting2 := DeleteDeviceByID(creationId)
+
+	if errorDeleting2 != nil {
+		t.Errorf("got %s, expected %s", errorDeleting2, "nil")
 		return
 	}
 

@@ -30,7 +30,7 @@ func mainSetup() {
 	}
 
 	app_config.LoadConfig()
-	//routes.SetRoutesAuth(os.Getenv(secrets.KEY_EXTERNAL_AUTH))
+
 	database.Connect()
 
 }
