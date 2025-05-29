@@ -8,11 +8,11 @@ Add PROD.env and TEST.env file at the root of the project, follow the .env.examp
 
 COMMANDS for running the server
 
-go get -d ./...
+#go get -d ./...
 
 at the root
 
-go run app.go
+#go run app.go
 
 ## Endpoints List
 
