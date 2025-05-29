@@ -4,8 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
-	"os"
-	"strings"
+	app_config "test-devices-api/config"
 	domain_devices "test-devices-api/domain"
 	"time"
 
@@ -15,9 +14,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var dbClient *mongo.Client
+var dbClient *mongo.Database
 
-const dbName string = "test-devices-api"
 const devices_collection string = "devices"
 const defaultIDTagName string = "_id"
 
@@ -43,7 +41,7 @@ const (
 
 func Connect() {
 	// "www.mongodb.com/docs/drivers/go/current/"
-	mongoURL := os.Getenv("MONGO_URL")
+	mongoURL := app_config.MONGO_URL
 
 	if len(mongoURL) == 0 {
 		log.Fatal("URL do mongoDB não setada corretamente no .env")
@@ -56,7 +54,7 @@ func Connect() {
 		log.Fatal(err)
 	}
 
-	dbClient = client
+	dbClient = client.Database(app_config.DB_NAME)
 
 }
 
@@ -70,10 +68,10 @@ func InsertDevice(deviceData domain_devices.Devices) (string, error) {
 
 	deviceData.CreationTime = startTime
 	deviceData.ModificationTime = startTime
-	deviceData.Name = strings.ToLower(strings.Trim(deviceData.Name, " "))
 
 	deviceData.State = domain_devices.DefaultInitState
-	res, dbError := dbClient.Database(dbName).Collection(devices_collection).InsertOne(context.Background(), deviceData)
+
+	res, dbError := dbClient.Collection(devices_collection).InsertOne(context.Background(), deviceData)
 
 	if dbError != nil {
 		return "", dbError
@@ -125,7 +123,7 @@ func UpdateDeviceByID(deviceID string, updateMap domain_devices.Devices) error {
 		string(querySEToperator): updateSet,
 	}
 
-	dbError := dbClient.Database(dbName).Collection(devices_collection).FindOneAndUpdate(context.Background(), bson.M{defaultIDTagName: objID}, update)
+	dbError := dbClient.Collection(devices_collection).FindOneAndUpdate(context.Background(), bson.M{defaultIDTagName: objID}, update)
 
 	if dbError.Err() != nil {
 		return dbError.Err()
@@ -149,7 +147,7 @@ func GetDeviceByID(id string) (*domain_devices.Devices, error) {
 
 	var result domain_devices.Devices
 
-	err := dbClient.Database(dbName).Collection(devices_collection).FindOne(context.Background(), bson.D{{defaultIDTagName, objID}}).Decode(&result)
+	err := dbClient.Collection(devices_collection).FindOne(context.Background(), bson.D{{defaultIDTagName, objID}}).Decode(&result)
 
 	if err == mongo.ErrNoDocuments {
 		return &domain_devices.Devices{}, nil
@@ -179,7 +177,7 @@ func GetDeviceByStateID(id string) (domain_devices.DeviceState, error) {
 
 	var result domain_devices.Devices
 
-	err := dbClient.Database(dbName).Collection(devices_collection).FindOne(context.Background(), bson.D{{defaultIDTagName, objID}}, fieldsToBring).Decode(&result)
+	err := dbClient.Collection(devices_collection).FindOne(context.Background(), bson.D{{defaultIDTagName, objID}}, fieldsToBring).Decode(&result)
 
 	if err == mongo.ErrNoDocuments {
 		return "", nil
@@ -223,7 +221,7 @@ func GetDeviceByField(searchMap domain_devices.Devices) (*domain_devices.Devices
 
 	var device domain_devices.Devices
 
-	err := dbClient.Database(dbName).Collection(devices_collection).FindOne(context.Background(), filter).Decode(&device)
+	err := dbClient.Collection(devices_collection).FindOne(context.Background(), filter).Decode(&device)
 
 	if err != nil {
 
@@ -266,7 +264,7 @@ func GetAllDevicesByField(searchMap domain_devices.Devices) (*[]domain_devices.D
 		}
 	}
 
-	res, err := dbClient.Database(dbName).Collection(devices_collection).Find(context.Background(), filter)
+	res, err := dbClient.Collection(devices_collection).Find(context.Background(), filter)
 
 	if err != nil {
 		return &[]domain_devices.Devices{}, err
@@ -300,7 +298,7 @@ func DeleteDeviceByID(id string) error {
 
 	var result domain_devices.Devices
 
-	err := dbClient.Database(dbName).Collection(devices_collection).FindOneAndDelete(context.Background(), bson.D{{defaultIDTagName, objID}}).Decode(&result)
+	err := dbClient.Collection(devices_collection).FindOneAndDelete(context.Background(), bson.D{{defaultIDTagName, objID}}).Decode(&result)
 
 	if err != nil {
 		return err

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	app_config "test-devices-api/config"
 	"test-devices-api/database"
 	"test-devices-api/routes"
-	"test-devices-api/secrets"
 
 	"github.com/gorilla/mux"
 )
@@ -15,8 +15,8 @@ const PORT = ":3001"
 
 func main() {
 
-	secrets.Load()
-
+	app_config.LoadConfig()
+	//routes.SetRoutesAuth(os.Getenv(secrets.KEY_EXTERNAL_AUTH))
 	database.Connect()
 
 	route := mux.NewRouter()
