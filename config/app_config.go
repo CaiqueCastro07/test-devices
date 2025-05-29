@@ -17,6 +17,7 @@ const DEFAULT_KEY_FOR_CONFIG = "APP_CONFIG"
 var MONGO_URL = ""
 var EXTERNAL_AUTH = ""
 var DB_NAME = ""
+var PORT = "3001"
 
 var varLists = []string{key_external_auth, key_mongo_url, key_db_name}
 
@@ -36,7 +37,7 @@ func LoadConfig() {
 	}
 
 	if !missing {
-		SetVars()
+		setVars()
 		return
 	}
 
@@ -44,7 +45,7 @@ func LoadConfig() {
 
 	fmt.Println("enviroment", currentEnvironment, ok)
 
-	if len(currentEnvironment) == 0 || currentEnvironment == "PROD" {
+	if len(currentEnvironment) == 0 {
 		currentEnvironment = "PROD"
 	}
 
@@ -79,11 +80,11 @@ func LoadConfig() {
 
 	}
 
-	SetVars()
+	setVars()
 
 }
 
-func SetVars() {
+func setVars() {
 
 	MONGO_URL = os.Getenv(key_mongo_url)
 	EXTERNAL_AUTH = os.Getenv(key_external_auth)

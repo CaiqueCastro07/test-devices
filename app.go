@@ -11,8 +11,6 @@ import (
 	"github.com/gorilla/mux"
 )
 
-const PORT = ":3001"
-
 func main() {
 
 	app_config.LoadConfig()
@@ -23,8 +21,8 @@ func main() {
 
 	routes.AddApproutes(route)
 
-	fmt.Println("Device App running port", PORT)
+	fmt.Println("Device App running port", app_config.PORT)
 
-	log.Fatal(http.ListenAndServe(PORT, route))
+	log.Fatal(http.ListenAndServe(":"+app_config.PORT, route))
 
 }
