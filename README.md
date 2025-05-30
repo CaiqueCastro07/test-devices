@@ -70,11 +70,16 @@ terraform apply
 
 Pending:
 
-x Rate limiters\n
-x Non-static external auth\n
-x Handlers fully tested\n
-x ID json tag as "id" on structs\n
-x actions\n
+x Rate limiters
+
+x Non-static external auth
+
+x Handlers fully tested
+
+x ID json tag as "id" on structs
+
+x actions
+
 x buy domain for HTTPS\n
 
 
