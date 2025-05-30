@@ -66,7 +66,7 @@ terraform apply
 
 ## Overall documentation
 
-*EXTERNAL_AUTH on env, the key the client should sent on headers, placed at "x-api-key" header;
+*EXTERNAL_AUTH on env, the key the client should be sent on headers, placed at "x-api-key" header;
 
 Pending:
 
@@ -80,7 +80,7 @@ x ID json tag as "id" on structs
 
 x actions
 
-x buy domain for HTTPS\n
+x buy domain for HTTPS
 
 
 
