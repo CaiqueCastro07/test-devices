@@ -17,6 +17,12 @@ at the root
 go run app.go
 ```
 
+Run tests
+
+```sh
+go test -v ./...
+```
+
 ## Endpoints List
 
 This project is deployed on a VM, test it accessing the link below:
